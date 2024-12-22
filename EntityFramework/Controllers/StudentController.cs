@@ -1,5 +1,6 @@
 ﻿using EntityFramework.Data;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 
 namespace EntityFramework.Controllers
 {
@@ -22,7 +23,12 @@ namespace EntityFramework.Controllers
         {
             _dataContext.Students.Add(model);
             await _dataContext.SaveChangesAsync();
-            return RedirectToAction("Index","Home");
+            return RedirectToAction("Index");
+        }
+
+        public async Task<IActionResult> Index()
+        {
+            return View(await _dataContext.Students.ToListAsync());
         }
     }
 }
