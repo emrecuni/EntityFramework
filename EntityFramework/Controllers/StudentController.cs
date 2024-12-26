@@ -71,5 +71,19 @@ namespace EntityFramework.Controllers
 
             return View(student);
         }
+
+        [HttpGet]
+        public async Task<IActionResult> Delete(int? id)
+        {
+            if(id == null)
+                return NotFound();
+
+            var student = await _dataContext.Students.FindAsync(id);
+
+            if(student == null)
+                return NotFound();
+
+            return View(student);
+        }
     }
 }
