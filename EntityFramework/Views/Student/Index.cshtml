@@ -19,7 +19,7 @@
                 <td>@Html.DisplayFor(modelItem => student.StudentName)</td>
                 <td>@Html.DisplayFor(modelItem => student.StudentSurname)</td>
                 <td>
-                    <a class="btn btn-sm btn-primary">Details</a>
+                    <a asp-controller="Student" asp-action="Edit" asp-route-id="@student.Id" class="btn btn-sm btn-primary">Edit</a>
                     <a class="btn btn-sm btn-danger">Delete</a>
                 </td>
             </tr>

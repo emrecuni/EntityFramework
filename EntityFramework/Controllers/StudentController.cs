@@ -30,5 +30,46 @@ namespace EntityFramework.Controllers
         {
             return View(await _dataContext.Students.ToListAsync());
         }
+
+        [HttpGet]
+        public async Task<IActionResult> Edit(int? id)
+        {
+            if (id == null)
+                return NotFound();
+
+            var student = await _dataContext.Students.FindAsync(id);
+            //var student = await _dataContext.Students.FirstOrDefaultAsync(s => s.Id == id);
+            if (student == null)
+                return NotFound();
+
+            return View(student);
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> Edit(int? id, Student student)
+        {
+            if (id != student.Id)
+                return NotFound();
+
+            if (ModelState.IsValid)
+            {
+                try
+                {
+                    _dataContext.Update(student);
+                    await _dataContext.SaveChangesAsync();
+                }
+                catch (DbUpdateConcurrencyException)
+                {
+                    if (!_dataContext.Students.Any(s => s.Id == student.Id))
+                        return NotFound();
+                    else
+                        throw;
+                }
+                return RedirectToAction("Index");
+            }
+
+            return View(student);
+        }
     }
 }
