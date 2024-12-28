@@ -1,5 +1,6 @@
 ﻿using EntityFramework.Data;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 
 namespace EntityFramework.Controllers
 {
@@ -10,7 +11,10 @@ namespace EntityFramework.Controllers
         {
             _dataContext = dataContext;
         }
-
+        public async Task<IActionResult> Index()
+        {
+            return View(await _dataContext.Courses.ToListAsync());
+        }
 
         public IActionResult Create()
         {
