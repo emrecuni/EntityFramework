@@ -75,15 +75,29 @@ namespace EntityFramework.Controllers
         [HttpGet]
         public async Task<IActionResult> Delete(int? id)
         {
-            if(id == null)
+            if (id == null)
                 return NotFound();
 
             var student = await _dataContext.Students.FindAsync(id);
 
-            if(student == null)
+            if (student == null)
                 return NotFound();
 
             return View(student);
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> Delete([FromForm] int id)
+        {
+
+            var student = await _dataContext.Students.FirstAsync(s => s.Id == id);
+            if (student == null)
+                return NotFound();
+
+            _dataContext.Students.Remove(student);
+            await _dataContext.SaveChangesAsync();
+
+            return RedirectToAction("Index");
         }
     }
 }
