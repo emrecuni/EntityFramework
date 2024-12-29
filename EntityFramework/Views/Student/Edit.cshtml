@@ -1,23 +1,38 @@
 ﻿@model Student
 <h2>Öğrenci Güncelleme</h2>
 <hr>
-<form asp-controller="Student" asp-action="Edit" method="post">
-    <input type="hidden" asp-for="StudentId">
-    <div class="mb-3">
-        <label for="StudentName" class="form-label">Öğrenci Adı</label>
-        <input asp-for="StudentName" class="form-control">
+<div class="row">
+    <div class="col-8">
+        <form asp-controller="Student" asp-action="Edit" method="post">
+            <input type="hidden" asp-for="StudentId">
+            <div class="mb-3">
+                <label for="StudentName" class="form-label">Öğrenci Adı</label>
+                <input asp-for="StudentName" class="form-control">
+            </div>
+            <div class="mb-3">
+                <label for="StudentSurname" class="form-label">Öğrenci Soyadı</label>
+                <input asp-for="StudentSurname" class="form-control">
+            </div>
+            <div class="mb-3">
+                <label for="EMail" class="form-label">E-Mail</label>
+                <input asp-for="EMail" class="form-control">
+            </div>
+            <div class="mb-3">
+                <label for="Phone" class="form-label">Telefon</label>
+                <input asp-for="Phone" class="form-control">
+            </div>
+            <button type="submit" class="btn btn-secondary">Kaydet</button>
+        </form>
     </div>
-    <div class="mb-3">
-        <label for="StudentSurname" class="form-label">Öğrenci Soyadı</label>
-        <input asp-for="StudentSurname" class="form-control">
+    <div class="col-4">
+        <h4>Kurslar</h4>
+        <hr>
+        <ul>
+            @foreach(var item in @Model.CourseRegisters)
+            {
+                <li>@item.CourseId</li>
+            }
+        </ul>
     </div>
-    <div class="mb-3">
-        <label for="EMail" class="form-label">E-Mail</label>
-        <input asp-for="EMail" class="form-control">
-    </div>
-    <div class="mb-3">
-        <label for="Phone" class="form-label">Telefon</label>
-        <input asp-for="Phone" class="form-control">
-    </div>
-    <button type="submit" class="btn btn-secondary">Kaydet</button>
-</form>
+</div>
+

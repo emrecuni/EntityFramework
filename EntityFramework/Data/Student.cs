@@ -18,5 +18,6 @@ namespace EntityFramework.Data
         }
         public string? EMail { get; set; }
         public string? Phone { get; set; }
+        public ICollection<CourseRegister> CourseRegisters { get; set; } = new List<CourseRegister>();
     }
 }

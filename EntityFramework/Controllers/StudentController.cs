@@ -13,6 +13,11 @@ namespace EntityFramework.Controllers
             _dataContext = dataContext;
         }
 
+        public async Task<IActionResult> Index()
+        {
+            return View(await _dataContext.Students.ToListAsync());
+        }
+
         public IActionResult Create()
         {
             return View();
@@ -26,19 +31,17 @@ namespace EntityFramework.Controllers
             return RedirectToAction("Index");
         }
 
-        public async Task<IActionResult> Index()
-        {
-            return View(await _dataContext.Students.ToListAsync());
-        }
-
         [HttpGet]
         public async Task<IActionResult> Edit(int? id)
         {
             if (id == null)
                 return NotFound();
 
-            var student = await _dataContext.Students.FindAsync(id);
-            //var student = await _dataContext.Students.FirstOrDefaultAsync(s => s.Id == id);
+            //var student = await _dataContext.Students.FindAsync(id);
+            var student = await _dataContext.Students
+                .Include(s => s.CourseRegisters)
+                .ThenInclude(s => s.Course)
+                .FirstOrDefaultAsync(s => s.StudentId == id);
             if (student == null)
                 return NotFound();
 
