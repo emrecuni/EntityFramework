@@ -8,6 +8,7 @@ namespace EntityFramework.Data
         [Key]
         [Column("Id")]
         public int CourseId { get; set; }
-        public string? Title { get; set; }       
+        public string? Title { get; set; }
+        public ICollection<CourseRegister> CourseRegisters { get; set; } = new List<CourseRegister>();
     }
 }

@@ -13,7 +13,8 @@ namespace EntityFramework.Controllers
         }
         public async Task<IActionResult> Index()
         {
-            return View(await _dataContext.Courses.ToListAsync());
+            var courses = await _dataContext.Courses.ToListAsync();
+            return View(courses);
         }
 
         [HttpGet]
@@ -36,7 +37,10 @@ namespace EntityFramework.Controllers
             if (id == null)
                 return NotFound();
 
-            var course = await _dataContext.Courses.FindAsync(id);
+            var course = await _dataContext.Courses
+                .Include(c => c.CourseRegisters)
+                .ThenInclude(c => c.Student)
+                .FirstOrDefaultAsync(c => c.CourseId == id);
 
             if (course == null)
                 return NotFound();
