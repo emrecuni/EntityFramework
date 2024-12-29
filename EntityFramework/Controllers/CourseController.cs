@@ -77,7 +77,7 @@ namespace EntityFramework.Controllers
             if (id == null)
                 return NotFound();
 
-            var student = await _dataContext.Students.FindAsync(id);
+            var student = await _dataContext.Courses.FindAsync(id);
 
             if (student == null)
                 return NotFound();
@@ -88,12 +88,11 @@ namespace EntityFramework.Controllers
         [HttpPost]
         public async Task<IActionResult> Delete([FromForm] int id)
         {
-
-            var student = await _dataContext.Students.FirstAsync(s => s.Id == id);
-            if (student == null)
+            var course = await _dataContext.Courses.FirstAsync(s => s.Id == id);
+            if (course == null)
                 return NotFound();
 
-            _dataContext.Students.Remove(student);
+            _dataContext.Courses.Remove(course);
             await _dataContext.SaveChangesAsync();
 
             return RedirectToAction("Index");
