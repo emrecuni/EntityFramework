@@ -77,12 +77,12 @@ namespace EntityFramework.Controllers
             if (id == null)
                 return NotFound();
 
-            var student = await _dataContext.Courses.FindAsync(id);
+            var course = await _dataContext.Courses.FindAsync(id);
 
-            if (student == null)
+            if (course == null)
                 return NotFound();
 
-            return View(student);
+            return View(course);
         }
 
         [HttpPost]
