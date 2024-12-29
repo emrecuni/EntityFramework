@@ -6,7 +6,7 @@ namespace EntityFramework.Data
     {
         [Key]
         public int Id { get; set; }
-        public int StundentId { get; set; }
+        public int StudentId { get; set; }
         public int CourseId { get; set; }
         public DateTime RegisterDate { get; set; }
     }

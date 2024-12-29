@@ -48,7 +48,7 @@ namespace EntityFramework.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Edit(int? id, Course course)
         {
-            if (id != course.Id)
+            if (id != course.CourseId)
                 return NotFound();
 
             if (ModelState.IsValid)
@@ -60,7 +60,7 @@ namespace EntityFramework.Controllers
                 }
                 catch (DbUpdateConcurrencyException)
                 {
-                    if (!_dataContext.Courses.Any(s => s.Id == course.Id))
+                    if (!_dataContext.Courses.Any(s => s.CourseId == course.CourseId))
                         return NotFound();
                     else
                         throw;
@@ -88,7 +88,7 @@ namespace EntityFramework.Controllers
         [HttpPost]
         public async Task<IActionResult> Delete([FromForm] int id)
         {
-            var course = await _dataContext.Courses.FirstAsync(s => s.Id == id);
+            var course = await _dataContext.Courses.FirstAsync(s => s.CourseId == id);
             if (course == null)
                 return NotFound();
 

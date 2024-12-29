@@ -1,11 +1,13 @@
 ﻿using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace EntityFramework.Data
 {
     public class Course
     {
         [Key]
-        public int Id { get; set; }
+        [Column("Id")]
+        public int CourseId { get; set; }
         public string? Title { get; set; }       
     }
 }

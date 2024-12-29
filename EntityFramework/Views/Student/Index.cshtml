@@ -5,7 +5,7 @@
     <table class="table table-bordered">
         <thead>
             <tr>
-                <th style="width: 150px;">@Html.DisplayNameFor(m => m.Id)</th>
+                <th style="width: 150px;">@Html.DisplayNameFor(m => m.StudentId)</th>
                 <th>@Html.DisplayNameFor(m => m.StudentName)</th>
                 <th>@Html.DisplayNameFor(m => m.StudentSurname)</th>
                 <th style="width: 150px;"></th>
@@ -15,12 +15,12 @@
             @foreach(var student in Model)
             {
             <tr>
-                <td>@Html.DisplayFor(modelItem => student.Id)</td>
+                <td>@Html.DisplayFor(modelItem => student.StudentId)</td>
                 <td>@Html.DisplayFor(modelItem => student.StudentName)</td>
                 <td>@Html.DisplayFor(modelItem => student.StudentSurname)</td>
                 <td>
-                    <a asp-controller="Student" asp-action="Edit" asp-route-id="@student.Id" class="btn btn-sm btn-primary">Edit</a>
-                    <a asp-controller="Student" asp-action="Delete" asp-route-id="@student.Id" class="btn btn-sm btn-danger">Delete</a>
+                    <a asp-controller="Student" asp-action="Edit" asp-route-id="@student.StudentId" class="btn btn-sm btn-primary">Edit</a>
+                    <a asp-controller="Student" asp-action="Delete" asp-route-id="@student.StudentId" class="btn btn-sm btn-danger">Delete</a>
                 </td>
             </tr>
             }
