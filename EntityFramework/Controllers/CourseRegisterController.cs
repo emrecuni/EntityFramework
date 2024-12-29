@@ -16,7 +16,10 @@ namespace EntityFramework.Controllers
 
         public async Task<IActionResult> Index()
         {
-            var courseRegisters = await _dataContext.CourseRegisters.ToListAsync();
+            var courseRegisters = await _dataContext.CourseRegisters
+                .Include(x => x.Student)
+                .Include(x => x.Course)
+                .ToListAsync();
 
             return View(courseRegisters);
         }

@@ -1,5 +1,27 @@
-﻿@*
-    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
-*@
-@{
-}
+﻿@model IEnumerable<CourseRegister>
+<h2>Öğrenci Listesi</h2>
+<hr>
+<table class="table table-bordered">
+    <thead>
+        <tr>
+            <th style="width: 150px;">@Html.DisplayNameFor(m => m.Id)</th>
+            <th>@Html.DisplayNameFor(m => m.Student.StudentName)</th>
+            <th>@Html.DisplayNameFor(m => m.Course.Title)</th>
+            <th style="width: 150px;"></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach(var register in Model)
+        {
+            <tr>
+                <td>@Html.DisplayFor(modelItem => register.Id)</td>
+                <td>@Html.DisplayFor(modelItem => register.Student.StudentName)</td>
+                <td>@Html.DisplayFor(modelItem => register.Course.Title)</td>
+                <td>
+                    <a asp-controller="CourseRegister" asp-action="Edit" asp-route-id="" class="btn btn-sm btn-primary">Edit</a>
+                    <a asp-controller="CourseRegister" asp-action="Delete" asp-route-id="" class="btn btn-sm btn-danger">Delete</a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
