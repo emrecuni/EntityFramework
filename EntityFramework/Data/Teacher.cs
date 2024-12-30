@@ -12,7 +12,9 @@ namespace EntityFramework.Data
         public string? Surname { get; set; }
         public string? EMail { get; set; }
         public string? Phone { get; set; }
+        [DataType(DataType.Date)]
+        [DisplayFormat(DataFormatString = "{0:dd.MM.yyyy}", ApplyFormatInEditMode = false)]
         public DateTime StartDate { get; set; }
-        public ICollection<CourseRegister> Courses { get; set; } = new List<CourseRegister>();
+        public ICollection<CourseRegister> CourseRegisters { get; set; } = new List<CourseRegister>();
     }
 }
