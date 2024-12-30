@@ -17,7 +17,7 @@ namespace EntityFramework.Migrations
                 {
                     Id = table.Column<int>(type: "INTEGER", nullable: false)
                         .Annotation("Sqlite:Autoincrement", true),
-                    StundentId = table.Column<int>(type: "INTEGER", nullable: false),
+                    StudentId = table.Column<int>(type: "INTEGER", nullable: false),
                     CourseId = table.Column<int>(type: "INTEGER", nullable: false),
                     RegisterDate = table.Column<DateTime>(type: "TEXT", nullable: false)
                 },

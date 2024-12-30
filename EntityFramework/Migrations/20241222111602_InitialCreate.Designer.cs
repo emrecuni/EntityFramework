@@ -46,7 +46,7 @@ namespace EntityFramework.Migrations
                     b.Property<DateTime>("RegisterDate")
                         .HasColumnType("TEXT");
 
-                    b.Property<int>("StundentId")
+                    b.Property<int>("StudentId")
                         .HasColumnType("INTEGER");
 
                     b.HasKey("Id");

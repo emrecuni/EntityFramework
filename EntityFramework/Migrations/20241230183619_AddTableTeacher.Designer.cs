@@ -11,7 +11,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace EntityFramework.Migrations
 {
     [DbContext(typeof(DataContext))]
-    [Migration("20241230182505_AddTableTeacher")]
+    [Migration("20241230183619_AddTableTeacher")]
     partial class AddTableTeacher
     {
         /// <inheritdoc />
@@ -27,10 +27,15 @@ namespace EntityFramework.Migrations
                         .HasColumnType("INTEGER")
                         .HasColumnName("Id");
 
+                    b.Property<int?>("TeacherId")
+                        .HasColumnType("INTEGER");
+
                     b.Property<string>("Title")
                         .HasColumnType("TEXT");
 
                     b.HasKey("CourseId");
+
+                    b.HasIndex("TeacherId");
 
                     b.ToTable("Courses");
                 });
@@ -50,11 +55,16 @@ namespace EntityFramework.Migrations
                     b.Property<int>("StudentId")
                         .HasColumnType("INTEGER");
 
+                    b.Property<int?>("TeacherId")
+                        .HasColumnType("INTEGER");
+
                     b.HasKey("Id");
 
                     b.HasIndex("CourseId");
 
                     b.HasIndex("StudentId");
+
+                    b.HasIndex("TeacherId");
 
                     b.ToTable("CourseRegisters");
                 });
@@ -83,6 +93,42 @@ namespace EntityFramework.Migrations
                     b.ToTable("Students");
                 });
 
+            modelBuilder.Entity("EntityFramework.Data.Teacher", b =>
+                {
+                    b.Property<int>("TeacherId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("INTEGER")
+                        .HasColumnName("Id");
+
+                    b.Property<string>("EMail")
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("Name")
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("Phone")
+                        .HasColumnType("TEXT");
+
+                    b.Property<DateTime>("StartDate")
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("Surname")
+                        .HasColumnType("TEXT");
+
+                    b.HasKey("TeacherId");
+
+                    b.ToTable("Teachers");
+                });
+
+            modelBuilder.Entity("EntityFramework.Data.Course", b =>
+                {
+                    b.HasOne("EntityFramework.Data.Teacher", "Teacher")
+                        .WithMany()
+                        .HasForeignKey("TeacherId");
+
+                    b.Navigation("Teacher");
+                });
+
             modelBuilder.Entity("EntityFramework.Data.CourseRegister", b =>
                 {
                     b.HasOne("EntityFramework.Data.Course", "Course")
@@ -97,6 +143,10 @@ namespace EntityFramework.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
+                    b.HasOne("EntityFramework.Data.Teacher", null)
+                        .WithMany("Courses")
+                        .HasForeignKey("TeacherId");
+
                     b.Navigation("Course");
 
                     b.Navigation("Student");
@@ -110,6 +160,11 @@ namespace EntityFramework.Migrations
             modelBuilder.Entity("EntityFramework.Data.Student", b =>
                 {
                     b.Navigation("CourseRegisters");
+                });
+
+            modelBuilder.Entity("EntityFramework.Data.Teacher", b =>
+                {
+                    b.Navigation("Courses");
                 });
 #pragma warning restore 612, 618
         }

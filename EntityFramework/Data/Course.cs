@@ -9,7 +9,7 @@ namespace EntityFramework.Data
         [Column("Id")]
         public int CourseId { get; set; }
         public string? Title { get; set; }
-        public int TeacherId { get; set; }
+        public int? TeacherId { get; set; }
         public Teacher Teacher { get; set; } = null!;
         public ICollection<CourseRegister> CourseRegisters { get; set; } = new List<CourseRegister>();
     }
