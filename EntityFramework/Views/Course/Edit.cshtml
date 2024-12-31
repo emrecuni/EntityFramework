@@ -1,4 +1,4 @@
-﻿@model Course
+﻿@model CourseViewModel
 <h2>Kurs Güncelleme</h2>
 <hr>
 <div class="row">
@@ -14,7 +14,7 @@
                 <select asp-for="TeacherId" asp-items="ViewBag.Teachers" class="form-select">
                     <option value="">Seçiniz</option>
                 </select>
-            </div> 
+            </div>
             <button type="submit" class="btn btn-secondary">Kaydet</button>
         </form>
     </div>
@@ -23,9 +23,9 @@
         <ul>
             @foreach(var item in @Model.CourseRegisters)
             {
-                <li>
-                    @item.Student.FullName
-                </li>
+            <li>
+                @item.Student.FullName
+            </li>
             }
         </ul>
     </div>

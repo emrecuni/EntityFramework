@@ -9,5 +9,6 @@ namespace EntityFramework.Models
         public int CourseId { get; set; }
         public string? Title { get; set; }
         public int? TeacherId { get; set; }
+        public ICollection<CourseRegister> CourseRegisters { get; set; } = new List<CourseRegister>();
     }
 }

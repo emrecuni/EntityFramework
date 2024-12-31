@@ -1,4 +1,5 @@
 ﻿using EntityFramework.Data;
+using EntityFramework.Models;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
@@ -44,6 +45,13 @@ namespace EntityFramework.Controllers
             var course = await _dataContext.Courses
                 .Include(c => c.CourseRegisters)
                 .ThenInclude(c => c.Student)
+                .Select(c => new CourseViewModel
+                {
+                    CourseId = c.CourseId,
+                    Title = c.Title,
+                    TeacherId = c.TeacherId,
+                    CourseRegisters = c.CourseRegisters
+                })
                 .FirstOrDefaultAsync(c => c.CourseId == id);
 
             if (course == null)
@@ -55,7 +63,7 @@ namespace EntityFramework.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int? id, Course course)
+        public async Task<IActionResult> Edit(int? id, CourseViewModel course)
         {
             if (id != course.CourseId)
                 return NotFound();
@@ -64,7 +72,7 @@ namespace EntityFramework.Controllers
             {
                 try
                 {
-                    _dataContext.Update(course);
+                    _dataContext.Update(new Course() { CourseId = course.CourseId, Title = course.Title, TeacherId = course.TeacherId});
                     await _dataContext.SaveChangesAsync();
                 }
                 catch (DbUpdateConcurrencyException)
