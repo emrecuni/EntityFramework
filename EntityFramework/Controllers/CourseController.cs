@@ -1,5 +1,6 @@
 ﻿using EntityFramework.Data;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 
 namespace EntityFramework.Controllers
@@ -13,13 +14,16 @@ namespace EntityFramework.Controllers
         }
         public async Task<IActionResult> Index()
         {
-            var courses = await _dataContext.Courses.ToListAsync();
+            var courses = await _dataContext.Courses
+                .Include(c => c.Teacher)
+                .ToListAsync();
             return View(courses);
         }
 
         [HttpGet]
-        public IActionResult Create()
+        public async Task<IActionResult> Create()
         {
+            ViewBag.Teachers = new SelectList(await _dataContext.Teachers.ToListAsync(),"TeacherId", "FullName");
             return View();
         }
 
@@ -45,6 +49,7 @@ namespace EntityFramework.Controllers
             if (course == null)
                 return NotFound();
 
+            ViewBag.Teachers = new SelectList(await _dataContext.Teachers.ToListAsync(), "TeacherId", "FullName");
             return View(course);
         }
 

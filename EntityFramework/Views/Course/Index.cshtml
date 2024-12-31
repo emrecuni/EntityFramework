@@ -7,6 +7,7 @@
         <tr>
             <th style="width: 150px;">@Html.DisplayNameFor(m => m.CourseId)</th>
             <th>@Html.DisplayNameFor(m => m.Title)</th>
+            <th>@Html.DisplayNameFor(m => m.Teacher.FullName)</th>
             <th style="width: 150px;"></th>
         </tr>
     </thead>
@@ -16,6 +17,7 @@
             <tr>
                 <td>@Html.DisplayFor(modelItem => course.CourseId)</td>
                 <td>@Html.DisplayFor(modelItem => course.Title)</td>
+                <td>@Html.DisplayFor(modelItem => course.Teacher.FullName)</td>
                 <td>
                     <a asp-controller="Course" asp-action="Edit" asp-route-id="@course.CourseId" class="btn btn-sm btn-primary">Edit</a>
                     <a asp-controller="Course" asp-action="Delete" asp-route-id="@course.CourseId" class="btn btn-sm btn-danger">Delete</a>
