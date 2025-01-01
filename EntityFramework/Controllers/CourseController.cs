@@ -29,11 +29,17 @@ namespace EntityFramework.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> Create(Course model)
+        public async Task<IActionResult> Create(CourseViewModel model)
         {
-            _dataContext.Courses.Add(model);
-            await _dataContext.SaveChangesAsync();
-            return RedirectToAction("Index");
+            if (ModelState.IsValid)
+            {
+                _dataContext.Courses.Add(new Course {CourseId = model.CourseId, Title = model.Title, TeacherId = model.TeacherId });
+                await _dataContext.SaveChangesAsync();
+                return RedirectToAction("Index");
+            }
+
+            ViewBag.Teachers = new SelectList(await _dataContext.Teachers.ToListAsync(), "TeacherId", "FullName");
+            return View(model);
         }
 
         [HttpGet]
@@ -85,6 +91,7 @@ namespace EntityFramework.Controllers
                 return RedirectToAction("Index");
             }
 
+            ViewBag.Teachers = new SelectList(await _dataContext.Teachers.ToListAsync(), "TeacherId", "FullName");
             return View(course);
         }
 
